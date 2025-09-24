@@ -1,5 +1,6 @@
-var express = require('express');
-var app = express();
+const connect = require('connect');
+const app = connect();
+app.listen(3000);
 
 function logger(req, res, next){
   console.log(req.method, req.url);
@@ -8,23 +9,13 @@ function logger(req, res, next){
 }
 
 function helloWorld(req, res, next) {
-  // res.setHeader('Content-Type', 'text/plain');
-  res.send('Hello World');
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World');
 }
 
 function goodbye(req, res, next) {
   res.setHeader('Content-Type', 'text/plain');
   res.end('Goodbye, guys!');
-}
-
-function getuser(req, res, next){
-
-  let user = {
-    name: 'john',
-    email: 'john@smith.ca'
-  }
-
-  res.json(user);
 }
 
 function notfound(req, res, next) {
@@ -35,11 +26,6 @@ function notfound(req, res, next) {
 app.use(logger);
 app.use('/hello', helloWorld);
 app.use('/goodbye', goodbye);
-app.use('/getuser', getuser);
 app.use(notfound);
 
-app.listen(3000);
-
-console.log('Server running at http://localhost:3000/');
-
-module.exports = app;
+console.log('Server running at http://localhost:3000/')

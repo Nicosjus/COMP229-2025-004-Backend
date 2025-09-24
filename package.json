@@ -1,20 +1,28 @@
 {
   "name": "comp229-2025-004-backend",
   "version": "1.0.0",
-  "description": "Class Examples",
+  "description": "COMP229 Backend Examples",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JViniX/COMP229-2025-004-Backend.git"
+  },
   "keywords": [
     "COMP229",
     "Express",
-    "JS",
+    "Node",
     "MERN"
   ],
   "author": "Julio Vinicius",
-  "license": "ISC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JViniX/COMP229-2025-004-Backend/issues"
+  },
+  "homepage": "https://github.com/JViniX/COMP229-2025-004-Backend#readme",
   "dependencies": {
     "express": "^5.1.0"
   }
