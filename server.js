@@ -8,16 +8,16 @@ function logger(req, res, next){
 }
 
 function helloWorld(req, res, next) {
-  // res.setHeader('Content-Type', 'text/plain');
   res.send('Hello World');
 }
 
 function goodbye(req, res, next) {
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Goodbye, guys!');
+  res.send('Goodbye, guys!');
 }
 
 function getuser(req, res, next){
+
+  console.log(req.params.userId);
 
   let user = {
     name: 'john',
@@ -28,14 +28,13 @@ function getuser(req, res, next){
 }
 
 function notfound(req, res, next) {
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Sorry! Page not found');
+  res.send('Sorry! Page not found');
 }
 
 app.use(logger);
 app.use('/hello', helloWorld);
 app.use('/goodbye', goodbye);
-app.use('/getuser', getuser);
+app.use('/getuser/:userId', getuser);
 app.use(notfound);
 
 app.listen(3000);
