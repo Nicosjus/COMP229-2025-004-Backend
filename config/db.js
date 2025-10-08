@@ -1,8 +1,9 @@
+let config = require('./config');
 const mongoose = require('mongoose');
 
 module.exports = function(){
 
-    mongoose.connect('mongodb+srv://admin_db_user:awbVJ79DI7i64Scu@cluster003.oviumia.mongodb.net/');
+    mongoose.connect(config.ATLASDB);
 
     let mongodb = mongoose.connection;
 
