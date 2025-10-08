@@ -1,41 +1,45 @@
 var express = require('express');
+var createError = require('http-errors');
+var logger = require('morgan');
+var cors = require('cors');
+
+var db = require('./config/db');
+
+var userRouter = require('./app/routers/users');
+var indexRouter = require('./app/routers/index');
+
 var app = express();
 
-function logger(req, res, next){
-  console.log(req.method, req.url);
+db();
 
-  next();
-}
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false}));
 
-function helloWorld(req, res, next) {
-  res.send('Hello World');
-}
+app.use(logger('dev'));
+app.use('/', indexRouter);
+app.use('/api/users', userRouter);
 
-function goodbye(req, res, next) {
-  res.send('Goodbye, guys!');
-}
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
-function getuser(req, res, next){
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  console.log(req.params.userId);
-
-  let user = {
-    name: 'john',
-    email: 'john@smith.ca'
-  }
-
-  res.json(user);
-}
-
-function notfound(req, res, next) {
-  res.send('Sorry! Page not found');
-}
-
-app.use(logger);
-app.use('/hello', helloWorld);
-app.use('/goodbye', goodbye);
-app.use('/getuser/:userId', getuser);
-app.use(notfound);
+  // render the error json
+  res.status(err.status || 500);
+  res.json(
+    {
+      success: false,
+      message: err.message
+    }
+  );
+});
 
 app.listen(3000);
 
