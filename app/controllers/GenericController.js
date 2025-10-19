@@ -63,6 +63,16 @@ module.exports = function makeController(Model) {
         console.error(error);
         next(error);
       }
+    },
+    //delete all
+    async removeAll(req, res, next) {
+      try {
+        const result = await Model.deleteMany({});
+        res.json({ success: true, message: `Deleted ${result.deletedCount} records successfully` });
+      } catch (error) {
+        console.error(error);
+        next(error);
+      }
     }
   };
 };

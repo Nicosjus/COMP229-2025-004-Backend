@@ -10,6 +10,8 @@ function createRouter(controller,idParam = 'id') {
   router.get(`/:${idParam}`, controller.getOne || controller.getUser);  // supports both naming styles
   router.put(`/:${idParam}`, controller.update);
   router.delete(`/:${idParam}`, controller.remove);
+  router.delete('/', controller.removeAll); //delete all records
+
 
   return router;
 }
