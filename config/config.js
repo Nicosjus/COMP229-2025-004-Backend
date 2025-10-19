@@ -1,5 +1,5 @@
 require('dotenv').config()
 
 module.exports = {
-    "ATLASDB": process.env.ATLASDB
+    "ATLASDB": process.env.MONGODB_URI
 }

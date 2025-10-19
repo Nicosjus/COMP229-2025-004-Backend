@@ -2,25 +2,25 @@ var express = require('express');
 var createError = require('http-errors');
 var logger = require('morgan');
 var cors = require('cors');
-
 var db = require('./config/db');
-
-var userRouter = require('./app/routers/users');
 var indexRouter = require('./app/routers/index');
-
 var app = express();
-
 db();
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
-
 app.use(logger('dev'));
 app.use('/', indexRouter);
+const userRouter = require('./app/routers/UsersRoutes');
+const contactRouter = require('./app/routers/ContactsRoutes');
+const projectRouter = require('./app/routers/ProjectsRoutes');
+const serviceRouter = require('./app/routers/ServicesRoutes');  
+// API Routes
 app.use('/api/users', userRouter);
-
-// catch 404 and forward to error handler
+app.use('/api/contacts', contactRouter);
+app.use('/api/projects', projectRouter);
+app.use('/api/services', serviceRouter);
+ // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
