@@ -13,13 +13,18 @@ const ServiceSchema = new Schema(
             required: 'Description is required',
             trim: true
         },
+        service_image_url: {
+            type: String,
+             trim: true
+        },
+     
         
-        created: {
+        created_at: {
             type: Date,
             default: Date.now,
             immutable: true
         },
-        updated: {
+        updated_at: {
             type: Date,
             default: Date.now
         }

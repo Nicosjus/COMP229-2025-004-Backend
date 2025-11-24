@@ -3,24 +3,35 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
     {
-        firstName: String,
-        lastName: String,
+        first_name: String,
+        last_name: String,
         email: {
             type: String,
             unique: true,
             match: [/.+\@.+\..+/, "Please fill a valid e-mail address"]
+        },
+        phone_number: {
+            type: String,
+            unique: true,
+            trim: true
+        },
+
+        role: {
+            type: String,
+            enum: ['admin', 'user', 'guest'],
+            default: 'user'
         },
          password: {
             type: String,
             required: 'Password is required'
         },
      
-        created: {
+        created_at: {
             type: Date,
             default: Date.now,
             immutable: true
         },
-        updated: {
+        updated_at: {
             type: Date,
             default: Date.now
         }

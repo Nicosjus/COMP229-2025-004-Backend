@@ -17,12 +17,24 @@ const ProjectSchema = new Schema(
             required: 'Description is required',
             trim: true
         },
-        created: {
+        image_url: {
+            type: String,
+             trim: true
+        },
+        project_url: {
+            type: String,
+             trim: true
+        },
+        role_played: {
+            type: String,
+             trim: true
+        },
+        created_at: {
             type: Date,
             default: Date.now,
             immutable: true
         },
-        updated: {
+        updated_at: {
             type: Date,
             default: Date.now
         }
