@@ -16,6 +16,8 @@ const contactRouter = require('./app/routers/ContactsRoutes');
 const projectRouter = require('./app/routers/ProjectsRoutes');
 const serviceRouter = require('./app/routers/ServicesRoutes');  
 const contactUsRouter = require('./app/routers/ContactUsRoutes');
+const aboutUsRouter = require('./app/routers/AboutUsRoutes');
+const homeRouter = require('./app/routers/HomeRoutes');
 
 // API Routes
 app.use('/api/users', userRouter);
@@ -23,6 +25,8 @@ app.use('/api/contacts', contactRouter);
 app.use('/api/projects', projectRouter);
 app.use('/api/services', serviceRouter);
 app.use('/api/contact_us', contactUsRouter);
+app.use('/api/about_us', aboutUsRouter);
+app.use('/api/home', homeRouter);
  // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
