@@ -8,7 +8,7 @@ const ProjectSchema = new Schema(
             required: 'Title is required',
             trim: true
         },
-        completion:{
+        completion_at:{
             type:Date,
             required: 'Completion date is required'
         },
