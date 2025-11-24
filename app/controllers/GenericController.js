@@ -5,6 +5,13 @@ module.exports = function makeController(Model) {
     async getAll(req, res, next) {
       try {
         const list = await Model.find();
+        //update the __id to id
+        list.forEach((item) => {
+          item.id = item._id;
+          delete item._id;
+        }) ;
+
+
         res.json(list);
       } catch (error) {
         console.error(error);
@@ -38,6 +45,10 @@ module.exports = function makeController(Model) {
     // Update existing
     async update(req, res, next) {
       try {
+        //remove id from body if exists
+        if (req.body.id) {
+          delete req.body.id;
+        }
         const result = await Model.updateOne({ _id: req.params.id }, req.body);
         if (result.modifiedCount > 0) {
           res.json({ success: true, message: 'Updated successfully' });
