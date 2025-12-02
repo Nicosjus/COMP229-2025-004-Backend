@@ -13,8 +13,8 @@ function createRouter(controller,idParam = 'id') {
   router.delete('/', controller.removeAll); //delete all records
 
 
+
   return router;
 }
 
 module.exports = createRouter;
-
