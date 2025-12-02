@@ -13,18 +13,17 @@ const AuthenticationController = {
         return res.status(400).json({ success: false, message: 'Email and password are required.' });
       }
 
-      const user = await UserModel.findOne("nicosjus11@gmail.com" ).populate('authentication');
+      const user = await UserModel.findOne({email}).populate('authentication');
       
       if (!user) {
-        return res.status(404).json({ success: false, message: 'User not found', user:"nicosjus11@gmail.com" });
+        return res.status(404).json({ success: false, message: 'User not found', user:user });
       }
-
       if (!user.authentication) {
           return res.status(401).json({ success: false, message: 'Authentication details not found for user.' });
       }
 
       // Check password
-      const isPasswordValid = await bcrypt.compare("11", user.authentication.password);
+      const isPasswordValid = await bcrypt.compare(req.body.password, user.authentication.password);
 
       if (!isPasswordValid) {
         return res.status(401).json({ success: false, message: 'Invalid credentials' });
