@@ -1,42 +1,48 @@
 // RouteFactory.js
 const express = require('express');
-const AuthenticationController = require('./app/controllers/AuthenticationController');
+const AuthenticationController = require('../controllers/AuthenticationController');
 
-function createRouter(controller,idParam = 'id',options = {}) {
+function createRouter(controller, idParam = 'id', options = {}) {
   const router = express.Router();
 
+  // Default options for route protection
+  const defaultOptions = {
+    isGetAll: { isProtected: false },
+    isGetOne: { isProtected: false },
+    isUpdate: { isProtected: false },
+    isDelete: { isProtected: false },
+    isDeleteAll: { isProtected: false },
+    isCreate: { isProtected: false },
+  };
+
+  const finalOptions = { ...defaultOptions, ...options };
+
   // Standard REST routes
-  if(options.isGetAll.isProtected){
-      router.get('/',AuthenticationController.verifyToken, controller.getAll);
-  }else{
+  if (finalOptions.isGetAll.isProtected) {
+    router.get('/', AuthenticationController.verifyToken, controller.getAll);
+  } else {
     router.get('/', controller.getAll);
   }
-  if(options.isGetOne.isProtected){
-    router.get(`/:${idParam}`,AuthenticationController.verifyToken, controller.getOne);
-  }else{
+  if (finalOptions.isGetOne.isProtected) {
+    router.get(`/:${idParam}`, AuthenticationController.verifyToken, controller.getOne);
+  } else {
     router.get(`/:${idParam}`, controller.getOne);
   }
-  if(options.isUpdate.isProtected){
-    router.put(`/:${idParam}`,AuthenticationController.verifyToken, controller.update);
-  }else{
+  if (finalOptions.isUpdate.isProtected) {
+    router.put(`/:${idParam}`, AuthenticationController.verifyToken, controller.update);
+  } else {
     router.put(`/:${idParam}`, controller.update);
   }
-  if(options.isDelete.isProtected){
-    router.delete(`/:${idParam}`,AuthenticationController.verifyToken, controller.remove);
-  }else{
+  if (finalOptions.isDelete.isProtected) {
+    router.delete(`/:${idParam}`, AuthenticationController.verifyToken, controller.remove);
+  } else {
     router.delete(`/:${idParam}`, controller.remove);
   }
-  if(options.isDeleteAll.isProtected){
-    router.delete('/',AuthenticationController.verifyToken, controller.removeAll);
-  }else{
-    router.delete('/', controller.removeAll);
-  } 
-  if(options.isCreate.isProtected){
-    router.post('/',AuthenticationController.verifyToken, controller.create);
-  }else{
+  if (finalOptions.isCreate.isProtected) {
+    router.post('/', AuthenticationController.verifyToken, controller.create);
+  } else {
     router.post('/', controller.create);
-
-  } 
+  }
   return router;
 }
 
